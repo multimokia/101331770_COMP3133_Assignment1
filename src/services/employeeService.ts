@@ -27,7 +27,8 @@ export async function updateEmployee(id: string, employeeData: Employee) {
       email: employeeData.email,
       salary: employeeData.salary,
       gender: employeeData.gender ?? null
-    }
+    },
+    { runValidators: true }
   );
 }
 

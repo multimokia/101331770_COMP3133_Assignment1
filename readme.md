@@ -9,3 +9,10 @@ The following operations have been implemented:
 - Search Employee By Id
 - Update Employee By Id
 - Delete Employee By Id
+
+Start the server via:
+```bash
+npm install
+
+npm run start
+```

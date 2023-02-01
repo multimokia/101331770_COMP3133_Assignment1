@@ -18,8 +18,8 @@ export const typeDefs = gql`
   }
 
   type Query {
-    Login(username: String!, password: String!): User!
-    GetEmployeeById(id: ID!): Employee!
+    Login(username: String!, password: String!): User
+    GetEmployeeById(id: ID!): Employee
     GetAllEmployees: [Employee]!
   }
 
@@ -32,9 +32,9 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    Signup(username: String!, email: String!, password: String!): User!
-    CreateEmployee(employeeData: EmployeeInput): Employee!
-    UpdateEmployeeById(id: ID!, employeeData: EmployeeInput): Employee!
-    DeleteEmployeeById(id: ID!): Employee!
+    Signup(username: String!, email: String!, password: String!): User
+    CreateEmployee(employeeData: EmployeeInput): Employee
+    UpdateEmployeeById(id: ID!, employeeData: EmployeeInput): Employee
+    DeleteEmployeeById(id: ID!): Employee
   }
 `;

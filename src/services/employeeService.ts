@@ -19,7 +19,7 @@ export async function createEmployee(employeeData: Employee) {
 }
 
 export async function updateEmployee(id: string, employeeData: Employee) {
-  return await Employee.updateOne(
+  return await Employee.findByIdAndUpdate(
     {_id: id},
     {
       first_name: employeeData.first_name,
@@ -32,5 +32,5 @@ export async function updateEmployee(id: string, employeeData: Employee) {
 }
 
 export async function deleteEmployee(id: string) {
-  return await Employee.deleteOne({_id: id});
+  return await Employee.findByIdAndDelete({_id: id});
 }

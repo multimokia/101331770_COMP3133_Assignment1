@@ -18,10 +18,10 @@ export const resolvers = {
       return await registerUser(args);
     },
     CreateEmployee: async (parent: any, args: any, context: any, info: any) => {
-      return await createEmployee(args);
+      return await createEmployee(args.employeeData);
     },
     UpdateEmployeeById: async (parent: any, args: any, context: any, info: any) => {
-      return await updateEmployee(args.id, args);
+      return await updateEmployee(args.id, args.employeeData);
     },
     DeleteEmployeeById: async (parent: any, args: any, context: any, info: any) => {
       return await deleteEmployee(args.id);

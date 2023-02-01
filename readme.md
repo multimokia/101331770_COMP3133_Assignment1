@@ -1,5 +1,5 @@
 # COMP 3133 - Full Stack Development - Assignment 1
-This repository serves as a GraphQL API endpoint/backend for an employee management site
+This repository serves as a GraphQL + MongoDB API endpoint/backend for an employee management site
 
 The following operations have been implemented:
 - Signup
@@ -16,3 +16,10 @@ npm install
 
 npm run start
 ```
+
+NOTE! This repository supports environment variables! The following two are used:
+- `PORT`
+  - (Default: 4000)
+
+- `DB_CONNECTION_STR`
+  - A MongoDB connection string (**REQUIRED**)

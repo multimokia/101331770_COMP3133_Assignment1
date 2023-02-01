@@ -9,7 +9,7 @@ export const resolvers = {
     GetEmployeeById: async (parent: any, args: any, context: any, info: any) => {
       return await getEmployee(args.id);
     },
-    GetAllEmployees: async (parent: any, args: any, context: any, info: any) => {
+    GetAllEmployees: async () => {
       return await getAllEmployees();
     }
   },

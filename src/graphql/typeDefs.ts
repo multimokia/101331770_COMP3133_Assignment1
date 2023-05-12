@@ -5,7 +5,8 @@ export const typeDefs = gql`
     id: ID!
     username: String!
     email: String!
-    # NOTE: password should never be exposed
+    token: String
+    # NOTE: password should never be exposed, hence it is not included here as a field
   }
 
   type Employee {
@@ -17,12 +18,6 @@ export const typeDefs = gql`
     salary: Float!
   }
 
-  type Query {
-    Login(username: String!, password: String!): User
-    GetEmployeeById(id: ID!): Employee
-    GetAllEmployees: [Employee]!
-  }
-
   input EmployeeInput {
     first_name: String!,
     last_name: String!,
@@ -31,8 +26,13 @@ export const typeDefs = gql`
     gender: String
   }
 
+  type Query {
+    GetEmployeeById(id: ID!): Employee
+    GetAllEmployees: [Employee]!
+    ValidateLogin: Boolean
+  }
+
   type Mutation {
-    Signup(username: String!, email: String!, password: String!): User
     CreateEmployee(employeeData: EmployeeInput): Employee
     UpdateEmployeeById(id: ID!, employeeData: EmployeeInput): Employee
     DeleteEmployeeById(id: ID!): Employee

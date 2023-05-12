@@ -7,6 +7,8 @@ export type User = {
   password: string
 }
 
+export type StoredUser = User & { _id: string };
+
 const userSchema = new Schema<User>({
   username: {type: String, required: true, maxLength: 100, unique: true},
   email: EMAIL_PROP,

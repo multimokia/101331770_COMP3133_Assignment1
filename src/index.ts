@@ -5,9 +5,10 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import { typeDefs } from './graphql/typeDefs.js';
 import { resolvers } from './graphql/resolvers.js';
+import { authRouter } from './routes/auth.js';
+import { GraphQLError } from 'graphql';
 import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
-
+import { verifyUserToken } from './services/jwt.js';
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
@@ -16,18 +17,29 @@ export const API_SECRET = process.env.API_SECRET || '';
 
 async function startServer() {
   const app = express();
-  const apolloServer = new ApolloServer({
+  const apolloServer = new ApolloServer<object>({
     typeDefs,
-    resolvers
+    resolvers,
+    introspection: false,
+    includeStacktraceInErrorResponses: false,
   });
 
   await apolloServer.start();
-  app.use(bodyParser.json());
+  app.use(express.json());
+  app.use('/auth', authRouter);
   app.use(
     '/graphql',
     cors(),
     expressMiddleware(apolloServer, {
-      context: async ({ req }) => ({ token: req.headers.authorization })
+      context: async ({ req }) => {
+        const bearer = req.headers.authorization;
+
+        if (!bearer || !bearer.startsWith('Bearer ') || !await verifyUserToken(bearer)) {
+          throw new GraphQLError('Unauthorized.');
+        }
+
+        return { };
+      }
     })
   );
 

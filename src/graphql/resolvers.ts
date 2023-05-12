@@ -1,30 +1,48 @@
-import { createEmployee, deleteEmployee, getAllEmployees, getEmployee, updateEmployee } from '../services/employeeService.js';
-import { loginUser, registerUser } from '../services/userService.js';
+import { Employee } from '../schemas/employee.js';
+import {
+  createEmployee,
+  deleteEmployee,
+  getAllEmployees,
+  getEmployee,
+  updateEmployee
+} from '../services/employeeService.js';
+import { GraphQLError } from 'graphql';
+import { verifyUserToken } from '../services/jwt.js';
 
 export const resolvers = {
   Query: {
-    Login: async (parent: any, args: any, context: any, info: any) => {
-      return await loginUser(args.username, args.password);
-    },
-    GetEmployeeById: async (parent: any, args: any, context: any, info: any) => {
-      return await getEmployee(args.id);
+    // Login: async (parent: never, { username, password }: { username: string, password: string }) => {
+    //   return await loginUser(username, password);
+    // },
+    GetEmployeeById: async (parent: never, { id }: { id: string }) => {
+      return await getEmployee(id);
     },
     GetAllEmployees: async () => {
       return await getAllEmployees();
-    }
+    },
   },
   Mutation: {
-    Signup: async (parent: any, args: any, context: any, info: any) => {
-      return await registerUser(args);
+    // Requires no authentication
+    // Signup: async (parent: never, args: UserType) => {
+    //   return await registerUser(args);
+    // },
+    CreateEmployee: async (
+      parent: never,
+      { employeeData }: { employeeData: Employee }
+    ) => {
+      return await createEmployee(employeeData);
     },
-    CreateEmployee: async (parent: any, args: any, context: any, info: any) => {
-      return await createEmployee(args.employeeData);
+    UpdateEmployeeById: async (
+      parent: never,
+      { id, employeeData }: { id: string, employeeData: Employee}
+    ) => {
+      return await updateEmployee(id, employeeData);
     },
-    UpdateEmployeeById: async (parent: any, args: any, context: any, info: any) => {
-      return await updateEmployee(args.id, args.employeeData);
-    },
-    DeleteEmployeeById: async (parent: any, args: any, context: any, info: any) => {
-      return await deleteEmployee(args.id);
+    DeleteEmployeeById: async (
+      parent: never,
+      { id }: { id: string }
+    ) => {
+      return await deleteEmployee(id);
     }
   }
 };

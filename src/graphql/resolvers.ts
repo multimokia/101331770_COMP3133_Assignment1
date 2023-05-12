@@ -6,14 +6,9 @@ import {
   getEmployee,
   updateEmployee
 } from '../services/employeeService.js';
-import { GraphQLError } from 'graphql';
-import { verifyUserToken } from '../services/jwt.js';
 
 export const resolvers = {
   Query: {
-    // Login: async (parent: never, { username, password }: { username: string, password: string }) => {
-    //   return await loginUser(username, password);
-    // },
     GetEmployeeById: async (parent: never, { id }: { id: string }) => {
       return await getEmployee(id);
     },
@@ -22,10 +17,6 @@ export const resolvers = {
     },
   },
   Mutation: {
-    // Requires no authentication
-    // Signup: async (parent: never, args: UserType) => {
-    //   return await registerUser(args);
-    // },
     CreateEmployee: async (
       parent: never,
       { employeeData }: { employeeData: Employee }

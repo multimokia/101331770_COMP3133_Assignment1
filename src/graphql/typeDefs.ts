@@ -1,14 +1,6 @@
 import { gql } from 'graphql-tag';
 
 export const typeDefs = gql`
-  type User {
-    id: ID!
-    username: String!
-    email: String!
-    token: String
-    # NOTE: password should never be exposed, hence it is not included here as a field
-  }
-
   type Employee {
     id: ID!
     first_name: String!
